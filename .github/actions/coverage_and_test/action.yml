@@ -9,20 +9,17 @@ runs:
       run: |
         PROJECT_PATH=$(pwd)
 
-        # ToDo: Add documentation and describe better this command prueba  prueba
+        # Se ejecutan los test indicando que estos se busquen en "build/tests" y que solo se imprima un output si alguno falla
         ctest --test-dir build/tests --output-on-failure
 
-        # ToDo: Add documentation and describe better this command
-
-
+        # Se hace un análisis de cobertura indicando el path del proyecto como directorio raiz para el mismo. Luego la salida se redirige al archivo 'coverage.txt'
         gcovr -r $PROJECT_PATH . > $PROJECT_PATH/coverage.txt
 
         echo "Runnig: gcovr -r $PROJECT_PATH ."
 
         cat $PROJECT_PATH/coverage.txt
 
-        # Find the value of correct coverage
-        # ToDo: Add documentation and describe better this command
+        # Se obtiene el porcentaje de cobertura extraído del archivo 'coverage.txt'
         COVERAGE_RESULT=$(grep "TOTAL" $PROJECT_PATH/coverage.txt | awk '{print $NF}' | cut -d '%' -f 1)
 
         # Coverage lines GT 20
